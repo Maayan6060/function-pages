@@ -6,11 +6,16 @@ import numpy as np
 class AnalyzeApp:
     def __init__(self):
         self.x = s.symbols('x')
+        if "step" not in st.session_state:
+            st.session_state.step = 0
 
     def definition(self):
         y = self.input_text
         yf = s.sympify(y)
         D = continuous_domain(yf, self.x, S.Reals)
+        st.session_state['x'] = self.x
+        st.session_state['D'] = D
+        st.session_state['yf'] = yf
         st.write("The field of definition:", D)
         self.vertical_asymptote(yf, D, self.x)
 
@@ -41,13 +46,92 @@ class AnalyzeApp:
          yi="(0,"+str(yi)+")"
          xix.append(str(yi))
         st.write("Intersection with the axes: ", str(xix))
+    def derivative(self,yf,D,x): #ניגזרת
+        f=s.diff(yf,x)
+        f=s.simplify(f)
+        st.write("The derivative of the function: ", str(f))
+        self.sextreme(yf,f,D,x)
+    def sextreme(self,yf,f,D,x):#חשד לקיצון
+        ep0=s.Eq(f,0)
+        ex=s.solve(ep0,x)
+        if len(ex)>0:
+         st.write("y'= 0   (solutions): ", str(ex))
+        if len(ex)==0:
+         st.write("There are no extreme points")
+    # def table(self, instance): #טבלה  
+    #               if len(ex)>0:
+    #                 ea=(len(ex))
+    #                 tc=2*ea+1
+    #                 t=np.empty((3,tc+1),dtype=object)
+    #                 t[0,0]='X'
+    #                 t[1,0]='Y'
+    #                 t[2,0]="Y'"
+    #                 for i in range(1,len(ex)+1):
+    #                   t[0,2*i]=ex[i-1]
+    #                   if i<1 or i>1:
+    #                     aex=ex[i-2]+ex[i-1]
+    #                     aex=aex/2
+    #                     t[0,2*i-1]=aex
+    #                 t[0,tc]=ex[-1]+1
+    #                 t[0,1]=ex[0]-1
 
+    #                 ey=[]
+    #                 for i in range(len(ex)):
+    #                   ey.append(yf.subs(x,ex[i]))
+    #                 for i in range(1,len(ey)+1):
+    #                   t[1,2*i]=ey[i-1]
+    #                 yf1=s.sympify(f)
+    #                 yf1=s.simplify(yf1)
+    #                 for i in range(1,tc+1):
+    #                   t[2,i]=yf1.subs(x,t[0,i])
+    #                   if t[2,i]>0:
+    #                     t[1,i]="U"
+    #                   if t[2,i]<0:
+    #                     t[1,i]="D"
+
+    #                   u=""
+    #                   d=""
+    #                   if t[1,1]=="U":
+    #                     u+="x<"+str(t[0,2])
+    #                   if t[1,1]=="D":
+    #                     d="x<"+str(t[0,2])
+    #                   if t[1,-1]=="U":
+    #                     u+=", "+"x>"+str(t[0,-2])
+    #                   if t[1,-1]=="D":
+    #                     d+=", "+"x>"+str(t[0,-2])
+    #                 for i in range(3,tc-1):
+    #                     if t[1,i]=="U":
+    #                       u+=", "+str(t[0,i-1])+"<x<"+str(t[0,i+1])
+    #                     if t[1,i]=="D":
+    #                       d+=", "+str(t[0,i-1])+"<x<"+str(t[0,i+1])
+    #                     if d=="":
+    #                      u="x כל"
+    #                      d="אין"
+    #                     if u=="":
+    #                      d="x כל"
+    #                      u="אין "
+
+    #                 exy=[]
+    #                 for i in range(len(ex)):
+    #                     i="("+str(ex[i])+","+str(ey[i])+")"
+    #                     exy.append(i)
+                    
     def run(self):
         st.title("Function Analyzing App")
         self.input_text = st.text_input("Enter a function:", "")
-        if st.button("Next"):
-            self.definition()
+        st.session_state.next_button=self.definition
+        if st.session_state.step==0:
+           if st.button("Next"):
+                self.definition()
+                st.session_state.step = 1
+        elif st.session_state.step==1:
+            if st.button("Next"):
+                x = st.session_state.get('x')
+                yf = st.session_state.get('yf')
+                D = st.session_state.get('D')
+                self.derivative(yf,D,x)
+
+        
 def app():
     analyze_app=AnalyzeApp()
     analyze_app.run()
-
