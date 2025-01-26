@@ -19,7 +19,7 @@ class tangent:
         st.write("m = ",int(m))
         st.write("y-y₁=m(x-x₁)")
         st.write("y-",yv,"=",int(m),"(x-",xv,")")
-        t="y-"+str(x_value_input)+"="+str(m)+"x"+"+("+str(int(m)*int(x_value_input)*-1)+")"
+        t="y-"+str(y_value_input)+"="+str(m)+"x"+"+("+str(int(m)*int(x_value_input)*-1)+")"
         st.write(t)
         t="y="+str(m)+"x"+"+("+str((int(m)*int(x_value_input)*-1)+int(y_value_input))+")"
         st.write(t)
