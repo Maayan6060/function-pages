@@ -8,12 +8,13 @@ def load_page(page_name):
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
-page_choices = ["differential", "integral"]
+page_choices = ["differential", "integral", "tangent"]
 selected_page = st.sidebar.radio("Go to", page_choices)
 
 # Load the selected page
 page_mapping = {
     "differential": "differential", 
-    "integral": "integral"
+    "integral": "integral",
+    "tangent": "tangent"
 }
 load_page(page_mapping[selected_page])
