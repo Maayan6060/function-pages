@@ -8,6 +8,7 @@ class tangent:
     def __init__(self):
         self.x = s.symbols('x')
     def tangent(self,x,function_input_t,x_value_input,y_value_input): #ניגזרת
+        e=E
         y=function_input_t
         yf=s.sympify(y)
         f=s.diff(yf,x)
