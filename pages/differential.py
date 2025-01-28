@@ -3,13 +3,16 @@ import sympy as s
 from sympy import symbols, S, oo, limit
 from sympy.calculus.util import continuous_domain
 import numpy as np
+from sympy import E
 class AnalyzeApp:
     def __init__(self):
+        self.e = E
         self.x = s.symbols('x')
         if "step" not in st.session_state:
             st.session_state.step = 0
 
     def definition(self):
+        e=E
         y = self.input_text
         yf = s.sympify(y)
         D = continuous_domain(yf, self.x, S.Reals)
@@ -20,6 +23,7 @@ class AnalyzeApp:
         self.vertical_asymptote(yf, D, self.x)
 
     def vertical_asymptote(self, yf, D, x):
+        e=E
         va = []
         undefined = S.Reals - D
         for i in undefined:
@@ -33,10 +37,12 @@ class AnalyzeApp:
         self.horizontal_asymptote(yf, D, x)
 
     def horizontal_asymptote(self, yf, D, x):
+        e=E
         oo_limit = limit(yf, x, oo)
         st.write("Horizontal asymptotes: "+"y=",str(oo_limit))
         self.xyi(x,yf,D)
     def xyi(self,x,yf,D):
+        e=E
         xi=s.Eq(yf,0)
         xix=s.solve(xi,x)
         for i in range(len(xix)):
@@ -47,11 +53,13 @@ class AnalyzeApp:
          xix.append(str(yi))
         st.write("Intersection with the axes: ", str(xix))
     def derivative(self,yf,D,x): #ניגזרת
+        e=E
         f=s.diff(yf,x)
         f=s.simplify(f)
         st.write("The derivative of the function: ", str(f))
         self.sextreme(yf,f,D,x)
     def sextreme(self,yf,f,D,x):#חשד לקיצון
+        e=E
         ep0=s.Eq(f,0)
         ex=s.solve(ep0,x)
         if len(ex)>0:
