@@ -16,6 +16,16 @@ class tangent:
         st.write("f'(x) = ", str(f))
         xv = (x_value_input)
         yv = (y_value_input)
+        xv = sympify(xv)
+        yf = sympify(yv)
+        if xv.lstrip('-').isdigit():
+            xv=int(xv)
+        if yv.lstrip('-').isdigit():
+            yf=int(yv)
+        if not(xv.has(E,log)):
+            xv=float(xv)
+        if not(yf.has(E,log)):
+            yf=float(xv)
         m = f.subs(x, xv)
         st.write("m = ",int(m))
         st.write("y-y₁=m(x-x₁)")
