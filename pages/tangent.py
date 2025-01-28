@@ -29,7 +29,7 @@ class tangent:
         m = f.subs(x, xv)
         st.write("m = ",float(m))
         st.write("y-y₁=m(x-x₁)")
-        st.write("y-",yv,"=",int(m),"(x-",xv,")")
+        st.write("y-",yv,"=",float(m),"(x-",xv,")")
         t="y-",yv,"=",float(m)+"x"+"+("+str(float(m)*float(xv)*-1)+")"
         st.write(t)
         t="y="+str(m)+"x"+"+("+str((float(m)*float(xv)*-1)+float(yv))+")"
