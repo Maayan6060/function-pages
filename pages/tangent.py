@@ -16,23 +16,23 @@ class tangent:
         st.write("f'(x) = ", str(f))
         xv = (x_value_input)
         yv = (y_value_input)
-        xv = sympify(xv)
-        yf = sympify(yv)
-        if xv.lstrip('-').isdigit():
-            xv=int(xv)
-        if yv.lstrip('-').isdigit():
-            yf=int(yv)
-        if not(xv.has(E,log)):
-            xv=float(xv)
-        if not(yf.has(E,log)):
-            yf=float(xv)
+        # xv = sympify(xv)
+        # yf = sympify(yv)
+        # if xv.lstrip('-').isdigit():
+        #     xv=int(xv)
+        # if yv.lstrip('-').isdigit():
+        #     yf=int(yv)
+        # if not(xv.has(E,log)):
+        #     xv=float(xv)
+        # if not(yf.has(E,log)):
+        #     yf=float(xv)
         m = f.subs(x, xv)
-        st.write("m = ",int(m))
+        st.write("m = ",float(m))
         st.write("y-y₁=m(x-x₁)")
         st.write("y-",yv,"=",int(m),"(x-",xv,")")
-        t="y-"+str(y_value_input)+"="+str(m)+"x"+"+("+str(int(m)*int(x_value_input)*-1)+")"
+        t="y-",yv,"=",float(m)+"x"+"+("+str(float(m)*float(xv)*-1)+")"
         st.write(t)
-        t="y="+str(m)+"x"+"+("+str((int(m)*int(x_value_input)*-1)+int(y_value_input))+")"
+        t="y="+str(m)+"x"+"+("+str((float(m)*float(xv)*-1)+float(yv))+")"
         st.write(t)
 
 
